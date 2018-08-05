@@ -1,4 +1,4 @@
-# Seedminer vX.X.X
+# Seedminer v2.1.5
 from binascii import hexlify, unhexlify
 import glob
 import os
