@@ -1,19 +1,26 @@
-language: c
+language: generic
 os:
   - linux
   - osx
 compiler:
   - gcc
   - clang
-dist: trusty
 sudo: required
 addons:
   apt:
     packages:
     - ocl-icd-opencl-dev
+before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export SHARED=1; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cd /home/travis/; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then wget https://tls.mbed.org/download/mbedtls-2.12.0-apache.tgz; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then tar -xvf mbedtls-2.12.0-apache.tgz; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cd /home/travis/mbedtls-2.12.0/; fi
 install:
-  # Because Trusty doesn't have mbedtls
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export SHARED=1 && cd /home/travis/ && wget https://tls.mbed.org/download/mbedtls-2.12.0-apache.tgz && tar -xvf mbedtls-2.12.0-apache.tgz && cd /home/travis/mbedtls-2.12.0/ && make && make check && sudo make install; elif [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install mbedtls; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then make; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then make check; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo make install; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install mbedtls; fi
 script:
   - cd $TRAVIS_BUILD_DIR/bfCL
   - make
