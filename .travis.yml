@@ -5,6 +5,7 @@ compiler:
 matrix:
   include:
   - name: "bfCL - Ubuntu"
+    language: c
     os: linux
     sudo: required
     env: SHARED=1
@@ -21,13 +22,11 @@ matrix:
       - make
       - make check
       - sudo make install
-    script:
-      - cd $TRAVIS_BUILD_DIR/bfCL
-      - make
   - name: "bfCL - OS X"
+    language: c
     os: osx
     install:
       - brew install mbedtls
-    script:
-      - cd $TRAVIS_BUILD_DIR/bfCL
-      - make
+script:
+  - cd $TRAVIS_BUILD_DIR/bfCL
+  - make
