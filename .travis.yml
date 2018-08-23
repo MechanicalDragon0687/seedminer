@@ -7,21 +7,21 @@ compiler:
   - clang
 dist: trusty
 sudo: required
-env: SHARED=1
+if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then env: SHARED=1; fi
 addons:
   apt:
     packages:
     - ocl-icd-opencl-dev
     # Because Trusty doesn't have mbedtls
-    install:
-      - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cd /home/travis/ \
-        && wget https://tls.mbed.org/download/mbedtls-2.12.0-apache.tgz \
-        && tar -xvf mbedtls-2.12.0-apache.tgz \
-        && cd /home/travis/mbedtls-2.12.0/ \
-        && make \
-        && make check \
-        && sudo make install; \
-        else if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install mbedtls; fi
-    script:
-      - cd $TRAVIS_BUILD_DIR/bfCL
-      - make
+install:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cd /home/travis/ \
+    && wget https://tls.mbed.org/download/mbedtls-2.12.0-apache.tgz \
+    && tar -xvf mbedtls-2.12.0-apache.tgz \
+    && cd /home/travis/mbedtls-2.12.0/ \
+    && make \
+    && make check \
+    && sudo make install; \
+    else if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install mbedtls; fi
+script:
+  - cd $TRAVIS_BUILD_DIR/bfCL
+  - make
