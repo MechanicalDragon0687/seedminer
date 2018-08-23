@@ -1,4 +1,7 @@
 matrix:
+  compiler:
+    - clang
+    - gcc
   include:
   - name: "bfCL - Ubuntu"
     os: linux
@@ -6,8 +9,6 @@ matrix:
     language: c
     env:
       - SHARED=1
-      - CC=clang
-      - CC=gcc
     addons:
       apt:
         packages:
@@ -29,9 +30,6 @@ matrix:
   - name: "bfCL - OS X"
     os: osx
     language: c
-    env:
-      - CC=clang
-      - CC=gcc
     install:
       - brew install mbedtls
     script:
