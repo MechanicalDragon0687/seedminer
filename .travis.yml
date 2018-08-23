@@ -1,7 +1,7 @@
+compiler:
+  - clang
+  - gcc
 matrix:
-  compiler:
-    - clang
-    - gcc
   include:
   - name: "bfCL - Ubuntu"
     os: linux
