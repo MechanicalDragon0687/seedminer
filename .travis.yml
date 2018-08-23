@@ -1,7 +1,7 @@
 matrix:
   include:
-    - name: "bfCL - Ubuntu"
-    language: c
+    # - name: "bfCL - Ubuntu"
+    - language: c
     os: linux
     dist: trusty
     sudo: required
@@ -24,8 +24,8 @@ matrix:
       - cd $TRAVIS_BUILD_DIR/bfCL
       - make
 
-    - name: "bfCL - OS X"
-    language: c
+    # - name: "bfCL - OS X"
+    - language: c
     os: osx
     install:
       - brew install mbedtls
