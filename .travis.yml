@@ -4,10 +4,10 @@ matrix:
     os: linux
     sudo: required
     language: c
-    compiler:
-      - gcc
-      - clang
-    env: SHARED=1
+    env:
+      - SHARED=1
+      - CC=clang
+      - CC=gcc
     addons:
       apt:
         packages:
@@ -29,9 +29,9 @@ matrix:
   - name: "bfCL - OS X"
     os: osx
     language: c
-    compiler:
-      - gcc
-      - clang
+    env:
+      - CC=clang
+      - CC=gcc
     install:
       - brew install mbedtls
     script:
