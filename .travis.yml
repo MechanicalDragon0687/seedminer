@@ -4,7 +4,7 @@ matrix:
     language: c
     compiler: gcc
     os: linux
-    sudo: false
+    sudo: false # Take advantage of a container-based environment
     addons:
       apt:
         packages:
@@ -34,7 +34,7 @@ matrix:
       - cd /home/travis/
       - git clone https://github.com/ARMmbed/mbedtls.git # Needed in order to compile bfCL
       - cd /home/travis/mbedtls/
-      - git checkout master # Stable branch
+      - git checkout mbedtls-2.7.5 # Stable, LTS tag
     install:
       - make lib
       - make check
@@ -54,3 +54,14 @@ matrix:
     script:
       - cd $TRAVIS_BUILD_DIR/bfCL
       - make
+  - name: "Seedminer_launcher script - Ubuntu" # We don't really need a macOS one
+    language: python
+    python: 3.6
+    cache: pip
+    os: linux
+    sudo: false # Take advantage of a container-based environment
+    install:
+      - pip install --upgrade pyflakes
+    script:
+      - cd $TRAVIS_BUILD_DIR/seedminer
+      - pyflakes seedminer_launcher3.py
