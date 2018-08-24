@@ -71,14 +71,12 @@ matrix:
     os: linux
     sudo: required
     services: docker
-    before_install:
-      - sudo apt-get update
     install:
-      - sudo apt-get install -y unzip
       - docker pull devkitpro/devkitarm
     script:
-      - docker run -v $TRAVIS_BUILD_DIR/seedstarter/:/seedstarter/ devkitpro/devkitarm /bin/bash -c "source /etc/profile.d/devkit-env.sh"
-      - docker run -v $TRAVIS_BUILD_DIR/seedstarter/:/seedstarter/ devkitpro/devkitarm /bin/bash -c "wget https://github.com/Steveice10/bannertool/releases/download/1.1.0/bannertool.zip"
-      - docker run -v $TRAVIS_BUILD_DIR/seedstarter/:/seedstarter/ devkitpro/devkitarm /bin/bash -c "unzip bannertool.zip"
-      - docker run -v $TRAVIS_BUILD_DIR/seedstarter/:/seedstarter/ devkitpro/devkitarm /bin/bash -c "pwd && ls"
-      - docker run -v $TRAVIS_BUILD_DIR/seedstarter/:/seedstarter/ devkitpro/devkitarm /bin/bash -c "make"
+      - docker run -d -v $TRAVIS_BUILD_DIR/seedstarter/:/seedstarter/ -w /seedstarter/ devkitpro/devkitarm /bin/bash
+      - docker exec devkitpro/devkitarm /bin/bash -c "source /etc/profile.d/devkit-env.sh"
+      - docker exec devkitpro/devkitarm /bin/bash -c "wget https://github.com/Steveice10/bannertool/releases/download/1.1.0/bannertool.zip"
+      - docker exec devkitpro/devkitarm /bin/bash -c "unzip bannertool.zip"
+      - docker exec devkitpro/devkitarm /bin/bash -c "pwd && ls"
+      - docker exec devkitpro/devkitarm /bin/bash -c "make"
