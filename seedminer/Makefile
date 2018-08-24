@@ -58,7 +58,7 @@ INCLUDES	:=	include
 # options for code generation
 #---------------------------------------------------------------------------------
 
-CFLAGS	:=	-Wall -Werror -O3 -m64
+CFLAGS	:=	-std=c11 -Wall -Werror -O3 -m64
 
 CFLAGS	+=	$(INCLUDE)
 ifeq ($(shell uname), Darwin)
