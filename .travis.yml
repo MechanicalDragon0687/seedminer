@@ -74,4 +74,4 @@ matrix:
     install:
       - docker pull devkitpro/devkitarm
     script:
-      - docker run -v $TRAVIS_BUILD_DIR:/seedstarter devkitpro/devkitarm /bin/bash -c "source /etc/profile.d/devkit-env.sh && cd seedstarter && make"
+      - docker run -v $TRAVIS_BUILD_DIR:/seedstarter devkitpro/devkitarm /bin/bash -c "source /etc/profile.d/devkit-env.sh && cd seedstarter && ls && make"
