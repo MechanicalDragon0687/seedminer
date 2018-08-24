@@ -60,19 +60,18 @@ matrix:
     python: 3.6
     os: linux
     sudo: false # Take advantage of a container-based environment
-    cache: pip
     install:
       - pip install --upgrade pyflakes
     script:
       - cd $TRAVIS_BUILD_DIR/seedminer
       - pyflakes seedminer_launcher3.py
   - name: "Seedstarter"
-  language: c
-  compiler: gcc
-  os: linux
-  sudo: required
-  services: docker
-  install:
-    - docker pull devkitpro/devkitarm
-  script:
-    - docker run -v $TRAVIS_BUILD_DIR:/seedstarter devkitpro/devkitarm /bin/bash "source /etc/profile.d/devkit-env.sh && make"
+    language: c
+    compiler: gcc
+    os: linux
+    sudo: required
+    services: docker
+    install:
+      - docker pull devkitpro/devkitarm
+    script:
+      - docker run -v $TRAVIS_BUILD_DIR:/seedstarter devkitpro/devkitarm /bin/bash "source /etc/profile.d/devkit-env.sh && make"
