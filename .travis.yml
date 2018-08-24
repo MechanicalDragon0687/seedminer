@@ -1,6 +1,6 @@
 matrix:
   include:
-  - name: "Seedminer_CPU_Bruteforcer - Ubuntu (gcc)"
+  - name: "Seedminer CPU Bruteforcer - Ubuntu (gcc)"
     language: c
     compiler: gcc
     os: linux
@@ -12,7 +12,7 @@ matrix:
     script:
       - cd $TRAVIS_BUILD_DIR/seedminer
       - make
-  - name: "Seedminer_CPU_Bruteforcer - macOS (clang)"
+  - name: "Seedminer CPU Bruteforcer - macOS (clang)"
     language: c
     compiler: clang
     os: osx
@@ -34,7 +34,7 @@ matrix:
       - cd /home/travis/
       - git clone https://github.com/ARMmbed/mbedtls.git # Needed in order to compile bfCL
       - cd /home/travis/mbedtls/
-      - git checkout mbedtls-2.7.5 # Stable, LTS tag
+      - git checkout $(git tag -l --sort -version:refname 'mbedtls-*' | head -n 1) # Checkout highest mbedtls tag version number
     install:
       - make lib
       - make check
@@ -54,12 +54,12 @@ matrix:
     script:
       - cd $TRAVIS_BUILD_DIR/bfCL
       - make
-  - name: "Seedminer_launcher script - Ubuntu" # We don't really need a macOS one
+  - name: "Seedminer Launcher - Ubuntu" # We don't really need a macOS instance
     language: python
     python: 3.6
-    cache: pip
     os: linux
     sudo: false # Take advantage of a container-based environment
+    cache: pip
     install:
       - pip install --upgrade pyflakes
     script:
