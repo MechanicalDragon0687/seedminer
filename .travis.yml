@@ -71,13 +71,13 @@ matrix:
     os: linux
     sudo: required
     services: docker
+    before_install:
+      - git clone --recursive https://github.com/Steveice10/bannertool.git
+      - cd bannertool
+      - git checkout master
     install:
+      - make
+      - ls
       - docker pull devkitpro/devkitarm
     script:
-      - docker run -v $TRAVIS_BUILD_DIR/seedstarter/:/seedstarter/ -w /seedstarter/ devkitpro/devkitarm /bin/bash
-      - docker ps -a
-      # - docker exec devkitpro/devkitarm /bin/bash -c "source /etc/profile.d/devkit-env.sh"
-      # - docker exec devkitpro/devkitarm /bin/bash -c "wget https://github.com/Steveice10/bannertool/releases/download/1.1.0/bannertool.zip"
-      # - docker exec devkitpro/devkitarm /bin/bash -c "unzip bannertool.zip"
-      # - docker exec devkitpro/devkitarm /bin/bash -c "pwd && ls"
-      # - docker exec devkitpro/devkitarm /bin/bash -c "make"
+      - docker run -v $TRAVIS_BUILD_DIR:/seedminer/ devkitpro/devkitarm /bin/bash -ex /seedminer/.travis/docker.sh
