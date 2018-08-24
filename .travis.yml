@@ -12,6 +12,17 @@ matrix:
     script:
       - cd $TRAVIS_BUILD_DIR/seedminer
       - make
+  - name: "Seedminer_CPU_Bruteforcer - macOS (clang)"
+    language: c
+    compiler: clang
+    os: osx
+    before_install:
+      - brew update
+    install:
+      - brew install openssl
+    script:
+      - cd $TRAVIS_BUILD_DIR/seedminer
+      - make
   - name: "bfCL - Ubuntu (gcc)"
     language: c
     compiler: gcc
@@ -29,6 +40,9 @@ matrix:
       - make check
       - sudo make install
       - sudo apt-get install -y ocl-icd-opencl-dev # OpenCL Headers & ICD Loader
+    script:
+      - cd $TRAVIS_BUILD_DIR/bfCL
+      - make
   - name: "bfCL - macOS (clang)"
     language: c
     compiler: clang
@@ -37,6 +51,6 @@ matrix:
       - brew update
     install:
       - brew install mbedtls
-  script:
-    - cd $TRAVIS_BUILD_DIR/bfCL
-    - make
+    script:
+      - cd $TRAVIS_BUILD_DIR/bfCL
+      - make
