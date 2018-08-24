@@ -89,4 +89,4 @@ matrix:
       - cd /home/travis/
       - docker pull devkitpro/devkitarm
     script:
-      - docker run -v /home/travis/bannertool/:/bannertool/ -v /home/travis/3dstool/:/3dstool/ -v /home/travis/Project_CTR/makerom/:/makerom/ -v $TRAVIS_BUILD_DIR:/seedminer/ devkitpro/devkitarm /bin/bash -x /seedminer/.travis/docker.sh
+      - sudo docker run -v /home/travis/bannertool/:/bannertool/ -v /home/travis/3dstool/:/3dstool/ -v /home/travis/Project_CTR/makerom/:/makerom/ -v $TRAVIS_BUILD_DIR:/seedminer/ devkitpro/devkitarm /bin/bash -x /seedminer/.travis/docker.sh
