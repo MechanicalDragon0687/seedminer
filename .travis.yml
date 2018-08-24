@@ -80,4 +80,4 @@ matrix:
       - make
       - docker pull devkitpro/devkitarm
     script:
-      - docker run -e PATH=$PATH:/home/travis/bannertool/output/linux-x86_64/ -v $TRAVIS_BUILD_DIR:/seedminer/ devkitpro/devkitarm /bin/bash -ex /seedminer/.travis/docker.sh
+      - docker run -e PATH=$PATH:/home/travis/bannertool/output/linux-x86_64/bannertool -v $TRAVIS_BUILD_DIR:/seedminer/ devkitpro/devkitarm /bin/bash -ex /seedminer/.travis/docker.sh
