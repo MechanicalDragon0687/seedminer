@@ -74,7 +74,7 @@ matrix:
     install:
       - docker pull devkitpro/devkitarm
     script:
-      - docker run -d -v $TRAVIS_BUILD_DIR/seedstarter/:/seedstarter/ -w /seedstarter/ devkitpro/devkitarm /bin/bash
+      - docker run -i -v $TRAVIS_BUILD_DIR/seedstarter/:/seedstarter/ -w /seedstarter/ devkitpro/devkitarm /bin/bash
       - docker exec devkitpro/devkitarm /bin/bash -c "source /etc/profile.d/devkit-env.sh"
       - docker exec devkitpro/devkitarm /bin/bash -c "wget https://github.com/Steveice10/bannertool/releases/download/1.1.0/bannertool.zip"
       - docker exec devkitpro/devkitarm /bin/bash -c "unzip bannertool.zip"
