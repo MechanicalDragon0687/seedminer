@@ -1,36 +1,30 @@
 matrix:
   include:
+  - name: "bfCL - Ubuntu (gcc)"
     language: c
-    compiler:
-      - gcc
-      - clang
-    matrix:
-      include:
-      - name: "bfCL - Ubuntu"
-        # language: c
-        # compiler: gcc
-        os: linux
-        sudo: required
-        env: SHARED=1
-        before_install:
-          - sudo apt-get update
-          - cd /home/travis/
-          - git clone https://github.com/ARMmbed/mbedtls.git
-          - cd mbedtls
-          - git checkout master # Stable branch
-        install:
-          - make
-          - make check
-          - sudo make install
-          - sudo apt-get install -y ocl-icd-opencl-dev
-      - name: "bfCL - macOS"
-        # language: c
-        # compiler: clang
-        os: osx
-        before_install:
-          - brew update
-        install:
-          - brew install mbedtls
-    script:
-      - cd $TRAVIS_BUILD_DIR/bfCL
-      - make
+    compiler: gcc
+    os: linux
+    sudo: required
+    env: SHARED=1 # To build mbedtls shared libs
+    before_install:
+      - sudo apt-get update
+      - cd /home/travis/
+      - git clone https://github.com/ARMmbed/mbedtls.git # Needed in order to compile bfCL
+      - cd mbedtls
+      - git checkout master # Stable branch
+    install:
+      - make lib
+      - make check
+      - sudo make install
+      - sudo apt-get install -y ocl-icd-opencl-dev # OpenCL Headers & ICD Loader
+  - name: "bfCL - macOS (clang)"
+    language: c
+    compiler: clang
+    os: osx
+    before_install:
+      - brew update
+    install:
+      - brew install mbedtls
+script:
+  - cd $TRAVIS_BUILD_DIR/bfCL
+  - make
