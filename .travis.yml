@@ -79,8 +79,14 @@ matrix:
       - git clone --recursive https://github.com/Steveice10/bannertool.git
       - cd /home/travis/bannertool/
       - git checkout master
-    install:
       - make
+      - cd /home/travis/
+      - git clone --recursive https://github.com/profi200/Project_CTR.git
+      - cd /home/travis/Project_CTR/makerom
+      - git checkout master
+      - make
+    install:
+      - cd /home/travis/
       - docker pull devkitpro/devkitarm
     script:
-      - docker run -v /home/travis/bannertool/:/bannertool/ -v /home/travis/3dstool/:/3dstool/ -v $TRAVIS_BUILD_DIR:/seedminer/ devkitpro/devkitarm /bin/bash -ex /seedminer/.travis/docker.sh
+      - docker run -v /home/travis/bannertool/:/bannertool/ -v /home/travis/3dstool/:/3dstool/ -v /home/travis/makerom/:/makerom/ -v $TRAVIS_BUILD_DIR:/seedminer/ devkitpro/devkitarm /bin/bash -ex /seedminer/.travis/docker.sh
