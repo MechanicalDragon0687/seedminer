@@ -1,4 +1,5 @@
 #!/bin/bash -ex
 
 source /etc/profile.d/devkit-env.sh
-make -C /seedminer/seedstarter
+export PATH=$PATH:/bannertool/output/linux-x86_64/
+make -C /seedminer/seedstarter/
