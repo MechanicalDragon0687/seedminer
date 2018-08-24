@@ -78,7 +78,6 @@ matrix:
       - git checkout master
     install:
       - make
-      - export PATH=$PATH:/home/travis/bannertool/output/linux-x86_64/
       - docker pull devkitpro/devkitarm
     script:
-      - docker run -v $TRAVIS_BUILD_DIR:/seedminer/ devkitpro/devkitarm /bin/bash -ex /seedminer/.travis/docker.sh
+      - docker run -e PATH=$PATH:/home/travis/bannertool/output/linux-x86_64/ -v $TRAVIS_BUILD_DIR:/seedminer/ devkitpro/devkitarm /bin/bash -ex /seedminer/.travis/docker.sh
