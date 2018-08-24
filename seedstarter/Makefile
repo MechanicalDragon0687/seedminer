@@ -157,7 +157,7 @@ endif
 
 #---------------------------------------------------------------------------------
 all: $(BUILD)
-	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
+	@$(MAKE) -C $(BUILD) -f $(CURDIR)/Makefile
 
 #---------------------------------------------------------------------------------
 $(BUILD):
@@ -171,11 +171,11 @@ clean:
 
 #---------------------------------------------------------------------------------
 cia: $(BUILD)
-	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile cia
+	@$(MAKE) -C $(BUILD) -f $(CURDIR)/Makefile cia
 
 #---------------------------------------------------------------------------------
 3dsx: $(BUILD)
-	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile 3dsx
+	@$(MAKE) -C $(BUILD) -f $(CURDIR)/Makefile 3dsx
 
 #---------------------------------------------------------------------------------
 else
