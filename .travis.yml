@@ -10,6 +10,7 @@ matrix:
         packages:
         - libssl-dev
     script:
+      - cd $TRAVIS_BUILD_DIR/seedminer
       - make
   - name: "bfCL - Ubuntu (gcc)"
     language: c
@@ -21,7 +22,7 @@ matrix:
       - sudo apt-get update
       - cd /home/travis/
       - git clone https://github.com/ARMmbed/mbedtls.git # Needed in order to compile bfCL
-      - cd mbedtls
+      - cd /home/travis/mbedtls/
       - git checkout master # Stable branch
     install:
       - make lib
