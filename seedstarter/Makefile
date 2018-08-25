@@ -30,9 +30,9 @@ include $(DEVKITARM)/3ds_rules
 TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
 RESOURCES   :=	resources
-SOURCES		:=	source source/graphics source/services
+SOURCES		:=	source source/services
 DATA		:=	data
-INCLUDES	:=	include include/graphics include/services
+INCLUDES	:=	include include/services
 ROMFS		:=	romfs
 
 APP_TITLE		:= seedStarter
