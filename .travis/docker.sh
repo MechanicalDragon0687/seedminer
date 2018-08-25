@@ -8,3 +8,4 @@ cd /seedminer/
 ls -l
 cd /seedminer/seedstarter/
 make
+ls -l
