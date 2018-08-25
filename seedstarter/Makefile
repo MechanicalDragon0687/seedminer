@@ -153,7 +153,7 @@ ifneq ($(ROMFS),)
 	export _3DSXFLAGS += --romfs=$(CURDIR)/$(ROMFS)
 endif
 
-.PHONY: $(BUILD) clean all cia
+.PHONY: $(BUILD) clean all cia 3dsx
 
 #---------------------------------------------------------------------------------
 all: $(BUILD)
