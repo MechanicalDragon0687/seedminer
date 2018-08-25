@@ -203,7 +203,6 @@ $(OUTPUT).smdh	: $(APP_ICON)
 	@echo "built ... $(notdir $@)"
 
 $(OUTPUT).cia	: $(OUTPUT).elf $(OUTPUT).smdh $(TARGET).bnr
-	@3dstool	-cvtf romfs $(OUTPUT).bin
 	@makerom	-f cia -o $(OUTPUT).cia -DAPP_ENCRYPTED=false -DAPP_UNIQUE_ID=$(APP_UNIQUE_ID) \
 				-elf $(OUTPUT).elf -rsf $(TOPDIR)/$(RSF_FILE) \
 				-icon $(OUTPUT).smdh -banner $(TARGET).bnr  \
