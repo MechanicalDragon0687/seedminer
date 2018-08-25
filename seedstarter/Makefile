@@ -33,7 +33,6 @@ RESOURCES   :=	resources
 SOURCES		:=	source source/graphics source/services
 DATA		:=	data
 INCLUDES	:=	include include/graphics include/services
-ROMFS		:=	$(TOPDIR)/romfs
 
 APP_TITLE		:= seedStarter
 APP_DESCRIPTION	:= Gather data for seedMiner
@@ -49,7 +48,6 @@ APP_PRODUCT_CODE 	:= SEDMI
 APP_UNIQUE_ID 		:= 0x5333D
 APP_SYSTEM_MODE 	:= 64MB
 APP_SYSTEM_MODE_EXT := Legacy
-APP_ROMFS_DIR		:= $(TOPDIR)/romfs
 RSF_FILE			:= resources/cia.rsf
 
 VERSION_MAJOR := 1
@@ -150,7 +148,7 @@ ifeq ($(strip $(NO_SMDH)),)
 endif
 
 ifneq ($(ROMFS),)
-	export _3DSXFLAGS += --romfs=$(CURDIR)/$(ROMFS)
+	export _3DSXFLAGS += --romfs=$(CURDIR)
 endif
 
 .PHONY: $(BUILD) clean all cia
@@ -205,7 +203,7 @@ $(OUTPUT).smdh	: $(APP_ICON)
 	@echo "built ... $(notdir $@)"
 
 $(OUTPUT).cia	: $(OUTPUT).elf $(OUTPUT).smdh $(TARGET).bnr
-	@3dstool	-cvtf romfs $(OUTPUT).bin --romfs-dir $(APP_ROMFS_DIR)
+	@3dstool	-cvtf romfs $(OUTPUT).bin
 	@makerom	-f cia -o $(OUTPUT).cia -DAPP_ENCRYPTED=false -DAPP_UNIQUE_ID=$(APP_UNIQUE_ID) \
 				-elf $(OUTPUT).elf -rsf $(TOPDIR)/$(RSF_FILE) \
 				-icon $(OUTPUT).smdh -banner $(TARGET).bnr  \
