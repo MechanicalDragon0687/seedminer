@@ -74,6 +74,8 @@ matrix:
     before_install:
       - sudo apt-get update
       - sudo apt-get install -y curl libiconv-hook-dev libssl-dev
+      - cd /usr/include/openssl/
+      - ls
       - cd /home/travis/
       - git clone --recursive https://github.com/dnasdw/3dstool.git
       - cd /home/travis/3dstool/
