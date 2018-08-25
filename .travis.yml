@@ -77,13 +77,9 @@ matrix:
       - cd /usr/include/openssl/
       - ls
       - cd /home/travis/
-      - git clone --recursive https://github.com/dnasdw/3dstool.git
-      - cd /home/travis/3dstool/
-      - git checkout master
-      - mkdir /home/travis/3dstool/build/
-      - cd /home/travis/3dstool/build/
-      - cmake -DUSE_DEP=OFF ..
-      - make
+      - wget https://github.com/dnasdw/3dstool/releases/download/v1.2.1/3dstool_linux_x86_64.tar.gz
+      - mkdir /home/travis/3dstool/
+      - tar -xzvf 3dstool_linux_x86_64.tar.gz -C /home/travis/3dstool/
       - cd /home/travis/
       - git clone --recursive https://github.com/Steveice10/bannertool.git
       - cd /home/travis/bannertool/
