@@ -33,7 +33,7 @@ matrix:
     before_install:
       - sudo apt-get update
       - cd /home/travis/
-      - git clone https://github.com/ARMmbed/mbedtls.git # Needed in order to compile bfCL
+      - git clone --recursive https://github.com/ARMmbed/mbedtls.git # Needed in order to compile bfCL
       - cd /home/travis/mbedtls/
       - git checkout $(git tag -l --sort -version:refname 'mbedtls-*' | head -n 1) # Checkout highest mbedtls tag version number
     install:
@@ -73,9 +73,11 @@ matrix:
     services: docker
     before_install:
       - cd /home/travis/
-      - wget https://github.com/dnasdw/3dstool/releases/download/v1.2.1/3dstool_linux_x86_64.tar.gz
-      - mkdir /home/travis/3dstool/
-      - tar -xzvf 3dstool_linux_x86_64.tar.gz -C /home/travis/3dstool/
+      - git clone --recursive https://github.com/dnasdw/3dstool.git
+      - cd /home/travis/3dstool/
+      - git checkout master
+      - make
+      - cd /home/travis/
       - git clone --recursive https://github.com/Steveice10/bannertool.git
       - cd /home/travis/bannertool/
       - git checkout master
