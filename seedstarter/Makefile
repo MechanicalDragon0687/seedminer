@@ -148,7 +148,7 @@ ifeq ($(strip $(NO_SMDH)),)
 endif
 
 ifneq ($(ROMFS),)
-	export _3DSXFLAGS += --romfs=$(CURDIR)
+	export _3DSXFLAGS += --romfs=$(CURDIR)/$(ROMFS)
 endif
 
 .PHONY: $(BUILD) clean all cia
@@ -206,7 +206,7 @@ $(OUTPUT).cia	: $(OUTPUT).elf $(OUTPUT).smdh $(TARGET).bnr
 	@makerom	-f cia -o $(OUTPUT).cia -DAPP_ENCRYPTED=false -DAPP_UNIQUE_ID=$(APP_UNIQUE_ID) \
 				-elf $(OUTPUT).elf -rsf $(TOPDIR)/$(RSF_FILE) \
 				-icon $(OUTPUT).smdh -banner $(TARGET).bnr  \
-				-exefslogo -target t -romfs "$(OUTPUT).bin" \
+				-exefslogo -target t \
 				-major $(VERSION_MAJOR) \
 				-minor $(VERSION_MINOR) \
 				-micro $(VERSION_MICRO)
