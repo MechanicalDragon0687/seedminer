@@ -72,10 +72,15 @@ matrix:
     sudo: required
     services: docker
     before_install:
+      - sudo apt-get update
+      - sudo apt-get install -y curl libiconv-hook-dev libssl-dev
       - cd /home/travis/
       - git clone --recursive https://github.com/dnasdw/3dstool.git
       - cd /home/travis/3dstool/
       - git checkout master
+      - mkdir /home/travis/3dstool/build/
+      - cd /home/travis/3dstool/build/
+      - cmake -DUSE_DEP=OFF ..
       - make
       - cd /home/travis/
       - git clone --recursive https://github.com/Steveice10/bannertool.git
