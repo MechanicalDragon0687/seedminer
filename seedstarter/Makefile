@@ -193,7 +193,7 @@ all: $(OUTPUT).cia $(OUTPUT).3dsx
 cia: $(OUTPUT).cia
 
 ifeq ($(strip $(NO_SMDH)),)
-$(OUTPUT).3dsx	: $(TOPDIR)/$(OUTPUT).elf $(TOPDIR)/$(OUTPUT).smdh
+$(OUTPUT).3dsx	: $(OUTPUT).elf $(OUTPUT).smdh
 $(OUTPUT).smdh	: $(TOPDIR)/Makefile
 else
 $(OUTPUT).3dsx	: $(OUTPUT).elf
