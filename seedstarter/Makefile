@@ -33,7 +33,6 @@ RESOURCES   :=	resources
 SOURCES		:=	source source/services
 DATA		:=	data
 INCLUDES	:=	include include/services
-ROMFS		:=	romfs
 
 APP_TITLE		:= seedStarter
 APP_DESCRIPTION	:= Gather data for seedMiner
