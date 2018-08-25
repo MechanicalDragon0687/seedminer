@@ -92,6 +92,6 @@ matrix:
       - make
     install:
       - cd /home/travis/
-      - docker pull devkitpro/devkitarm
+      - docker pull devkitpro/devkitarm:20180522 # Pull older version
     script:
       - sudo docker run -v /home/travis/bannertool/:/bannertool/ -v /home/travis/3dstool/:/3dstool/ -v /home/travis/Project_CTR/makerom/:/makerom/ -v $TRAVIS_BUILD_DIR:/seedminer/ devkitpro/devkitarm /bin/bash -x /seedminer/.travis/docker.sh
