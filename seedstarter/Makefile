@@ -30,10 +30,10 @@ include $(DEVKITARM)/3ds_rules
 TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
 RESOURCES   :=	resources
-SOURCES		:=	source source/services
+SOURCES		:=	source source/graphics source/services
 DATA		:=	data
-INCLUDES	:=	include include/services
-ROMFS := $(OUTPUT).bin
+INCLUDES	:=	include include/graphics include/services
+ROMFS		:=	$(TOPDIR)/romfs
 
 APP_TITLE		:= seedStarter
 APP_DESCRIPTION	:= Gather data for seedMiner
@@ -153,11 +153,11 @@ ifneq ($(ROMFS),)
 	export _3DSXFLAGS += --romfs=$(CURDIR)/$(ROMFS)
 endif
 
-.PHONY: $(BUILD) clean all cia 3dsx
+.PHONY: $(BUILD) clean all cia
 
 #---------------------------------------------------------------------------------
 all: $(BUILD)
-	@$(MAKE) -C $(BUILD) -f $(CURDIR)/Makefile
+	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
 
 #---------------------------------------------------------------------------------
 $(BUILD):
@@ -171,12 +171,11 @@ clean:
 
 #---------------------------------------------------------------------------------
 cia: $(BUILD)
-	@$(MAKE) -C $(BUILD) -f $(CURDIR)/Makefile cia
+	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile cia
 
 #---------------------------------------------------------------------------------
 3dsx: $(BUILD)
-	ls -l
-	@$(MAKE) -C $(BUILD) -f $(CURDIR)/Makefile 3dsx
+	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile 3dsx
 
 #---------------------------------------------------------------------------------
 else
