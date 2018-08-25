@@ -1,71 +1,74 @@
 language: generic
 matrix:
   include:
-  - name: "Seedminer CPU Bruteforcer - Ubuntu (gcc)"
+  - name: "Seedminer CPU Brute-forcer | Linux (gcc)"
     language: c
     compiler: gcc
     os: linux
-    sudo: false # Take advantage of a container-based environment
+    sudo: false # Use a container-based environment
     addons:
       apt:
         update: true
         packages:
         - libssl-dev
     script:
-      - cd $TRAVIS_BUILD_DIR/seedminer
+      - cd seedminer/
       - make
-  - name: "Seedminer CPU Bruteforcer - macOS (clang)"
+
+  - name: "Seedminer CPU Brute-forcer | macOS (clang)"
     language: c
     compiler: clang
     os: osx
-    before_install:
-      - brew update
     install:
+      - brew update
       - brew install openssl
     script:
-      - cd $TRAVIS_BUILD_DIR/seedminer
+      - cd seedminer/
       - make
-  - name: "bfCL - Ubuntu (gcc)"
+
+  - name: "bfCL | Linux (gcc)"
     language: c
     compiler: gcc
     os: linux
     sudo: required
-    env: SHARED=1 # To build mbedtls shared libs
+    env: SHARED=1 # To build shared mbedtls libraries
     before_install:
       - sudo apt-get update
-      - cd /home/travis/
-      - git clone --recursive https://github.com/ARMmbed/mbedtls.git # Needed in order to compile bfCL
-      - cd /home/travis/mbedtls/
-      - git checkout $(git tag -l --sort -version:refname 'mbedtls-*' | head -n 1) # Checkout highest mbedtls tag version number
+      - sudo apt-get install -y ocl-icd-opencl-dev # OpenCL C headers & ICD Loader
     install:
+      - cd ..
+      - git clone --recursive https://github.com/ARMmbed/mbedtls.git
+      - cd mbedtls/
+      - git checkout mbedtls-2.12.0
       - make lib
       - make check
       - sudo make install
-      - sudo apt-get install -y ocl-icd-opencl-dev # OpenCL Headers & ICD Loader
     script:
       - cd $TRAVIS_BUILD_DIR/bfCL
       - make
-  - name: "bfCL - macOS (clang)"
+
+  - name: "bfCL | macOS (clang)"
     language: c
     compiler: clang
     os: osx
-    before_install:
-      - brew update
     install:
+      - brew update
       - brew install mbedtls
     script:
-      - cd $TRAVIS_BUILD_DIR/bfCL
+      - cd bfCL/
       - make
+
   - name: "Seedminer Launcher"
     language: python
     python: 3.6
     os: linux
-    sudo: false # Take advantage of a container-based environment
+    sudo: false # Use a container-based environment
     install:
-      - pip install --upgrade pyflakes
+      - pip install pyflakes
     script:
-      - cd $TRAVIS_BUILD_DIR/seedminer
+      - cd seedminer/
       - pyflakes seedminer_launcher3.py
+
   - name: "Seedstarter"
     language: c
     compiler: gcc
@@ -73,26 +76,20 @@ matrix:
     sudo: required
     services: docker
     before_install:
-      - sudo apt-get update
-      - sudo apt-get install -y curl libiconv-hook-dev libssl-dev
-      - cd /usr/include/openssl/
-      - ls
-      - cd /home/travis/
-      - wget https://github.com/dnasdw/3dstool/releases/download/v1.2.1/3dstool_linux_x86_64.tar.gz
-      - mkdir /home/travis/3dstool/
-      - tar -xzvf 3dstool_linux_x86_64.tar.gz -C /home/travis/3dstool/
-      - cd /home/travis/
+      - cd ..
       - git clone --recursive https://github.com/Steveice10/bannertool.git
-      - cd /home/travis/bannertool/
+      - cd bannertool/
       - git checkout master
       - make
-      - cd /home/travis/
+      - cd ..
       - git clone --recursive https://github.com/profi200/Project_CTR.git
-      - cd /home/travis/Project_CTR/makerom
+      - cd Project_CTR/
       - git checkout master
+      - cd makerom/
       - make
     install:
-      - cd /home/travis/
+      - cd ../..
       - docker pull devkitpro/devkitarm
+      - ls
     script:
-      - sudo docker run -v /home/travis/bannertool/:/bannertool/ -v /home/travis/3dstool/:/3dstool/ -v /home/travis/Project_CTR/makerom/:/makerom/ -v $TRAVIS_BUILD_DIR:/seedminer/ devkitpro/devkitarm /bin/bash -x /seedminer/.travis/docker.sh
+      - sudo docker run -v /home/travis/bannertool/:/bannertool/ -v /home/travis/Project_CTR/makerom/:/makerom/ -v $TRAVIS_BUILD_DIR:/seedminer/ devkitpro/devkitarm /bin/bash -ex /seedminer/.travis/docker.sh
