@@ -151,7 +151,7 @@ ifneq ($(ROMFS),)
 	export _3DSXFLAGS += --romfs=$(CURDIR)/$(ROMFS)
 endif
 
-.PHONY: $(BUILD) clean all cia
+.PHONY: $(BUILD) clean all cia 3dsx
 
 #---------------------------------------------------------------------------------
 all: $(BUILD)
@@ -205,7 +205,7 @@ $(OUTPUT).smdh	: $(APP_ICON)
 $(OUTPUT).cia	: $(OUTPUT).elf $(OUTPUT).smdh $(TARGET).bnr
 	@makerom	-f cia -o $(OUTPUT).cia -DAPP_ENCRYPTED=false -DAPP_UNIQUE_ID=$(APP_UNIQUE_ID) \
 				-elf $(OUTPUT).elf -rsf $(TOPDIR)/$(RSF_FILE) \
-				-icon $(OUTPUT).smdh -banner $(TARGET).bnr  \
+				-icon $(OUTPUT).smdh -banner $(TARGET).bnr \
 				-exefslogo -target t \
 				-major $(VERSION_MAJOR) \
 				-minor $(VERSION_MINOR) \
