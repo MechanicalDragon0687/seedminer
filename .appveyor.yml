@@ -4,6 +4,6 @@ platform:
 install:
   - PATH C:\msys64\mingw64\bin;C:\msys64\usr\bin;%PATH%
   - bash -xc "pacman -Syu --noconfirm --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-openssl"
-build:
+build_script:
   - cd seedminer/
   - mingw32-make
