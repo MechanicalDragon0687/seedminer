@@ -2,6 +2,6 @@ image: Visual Studio 2017
 platform:
   - x64
 install:
-  - set PATH=C:\msys64\MINGW64\bin;C:\msys64\usr\bin;%PATH%
+  - PATH C:\msys64\MINGW64\bin;C:\msys64\usr\bin;%PATH%
   - bash -x "pacman -Syu --noconfirm --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-openssl"
   - bash -x "mingw32-make"
