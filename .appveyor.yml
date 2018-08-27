@@ -3,8 +3,7 @@ platform:
   - x64
 install:
   - PATH C:\msys64\mingw64\bin;C:\msys64\usr\bin;%PATH%
-  - pacman -Syu --noconfirm
-  - pacman -Su --noconfirm
+  # Doing full pacman upgrades take too long so we'll just use what packages are already available to us
   - pacman -S --noconfirm --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-openssl
 build_script:
   - cd seedminer/
