@@ -12,7 +12,7 @@ install:
   - ps: |
       if ($env:JOB -eq "Seedminer CPU Brute-forcer | Windows (gcc)") {
           pacman -S --noconfirm --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-openssl
-      } else {
+        } else {
           pacman -S --noconfirm --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-mbedtls
       }
 build_script:
