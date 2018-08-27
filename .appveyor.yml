@@ -11,9 +11,9 @@ install:
   # Doing full pacman upgrades take too long so we'll just use what packages are already available to us
   - ps: |
       if ($env:JOB -eq "Seedminer CPU Brute-forcer | Windows (gcc)") {
-          pacman -S --noconfirm --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-openssl
-        } else {
-          pacman -S --noconfirm --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-mbedtls
+          cmd /C pacman -S --noconfirm --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-openssl
+      } else {
+          cmd /C pacman -S --noconfirm --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-mbedtls
       }
 build_script:
   - cd seedminer/
