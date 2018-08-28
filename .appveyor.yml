@@ -7,8 +7,8 @@ environment:
     - JOB: "Seedminer CPU Brute-forcer | Windows (gcc)"
     - JOB: "bfCL | Windows (gcc)"
 install:
-  - PATH C:\msys64\mingw64\bin;C:\msys64\usr\bin;%PATH%
   - git submodule update --init --recursive
+  - PATH C:\msys64\mingw64\bin;C:\msys64\usr\bin;%PATH%
   # Doing full pacman upgrades takes too long so we'll just use what packages are already available to us
   # We're doing stderr redirect manipulation for the pacman commands since they write to stderr whcih normally causes Powershell to raise an exception
   # We change the exit code that is returned from robocopy to "0" so that the build doesn't fail
