@@ -8,7 +8,7 @@ environment:
     - JOB: "bfCL | Windows (gcc)"
 install:
   - PATH C:\msys64\mingw64\bin;C:\msys64\usr\bin;%PATH%
-  - ps: cmd /C dir
+  - ps: dir
   # Doing full pacman upgrades takes too long so we'll just use what packages are already available to us
   - ps: |
       # Use stderr redirect manipulation
