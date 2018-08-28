@@ -21,9 +21,6 @@ install:
           vcpkg install opencl:x64-windows
           copy C:\Tools\vcpkg\packages\opencl_x64-windows\lib\OpenCL.lib C:\msys64\mingw64\lib\
           robocopy /E C:\Tools\vcpkg\packages\opencl_x64-windows\include\CL\ C:\msys64\mingw64\include\CL\
-          if ($LASTEXITCODE -eq 1) {
-              cmd.exe /C exit 0
-          }
           echo hi
       }
 build_script:
