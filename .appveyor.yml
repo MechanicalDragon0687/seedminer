@@ -9,12 +9,12 @@ environment:
 install:
   - PATH C:\msys64\mingw64\bin;C:\msys64\usr\bin;%PATH%
   # Doing full pacman upgrades take too long so we'll just use what packages are already available to us
-  - cmd: ^
-      if "%JOB%" == "Seedminer CPU Brute-forcer | Windows ^(gcc^)" ( ^
-          pacman -S --noconfirm --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-openssl ^
-      ) else ( ^
-          pacman -S --noconfirm --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-mbedtls ^
-      )
+  - ps: |
+      if ($env:JOB -eq "Seedminer CPU Brute-forcer | Windows (gcc)" {
+          pacman -S --noconfirm --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-openssl 2>&1
+      } else {
+          pacman -S --noconfirm --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-mbedtls 2>&1
+      }
 build_script:
   - cd seedminer/
   - mingw32-make
