@@ -30,14 +30,18 @@ matrix:
     language: c
     compiler: gcc
     os: linux
-    sudo: false # Use a container-based environment
-    addons:
-      apt:
-        update: true
-        packages:
-        - ocl-icd-opencl-dev
+    sudo: required
     install:
-      - vcpkg install mbedtls:x64-linux # Because it's not in Trusty's apt repo
+      - sudo apt-get update
+      - sudo apt-get install -y ocl-icd-opencl-dev
+      - cd ../
+      - git clone --recursive https://github.com/Microsoft/vcpkg.git
+      - cd vcpkg/
+      - ./bootstrap-vcpkg.sh
+      - ./vcpkg install mbedtls:x64-linux # Because it's not in Trusty's apt repo
+      - sudo mkdir /usr/include/mbedtls/
+      - sudo cp -r packages/mbedtls_x64-linux/include/. /usr/local/include/mbedtls/
+      - sudo cp -r packages/mbedtls_x64-linux/lib/. /usr/local/lib/
     script:
       - cd $TRAVIS_BUILD_DIR/bfCL
       - make
