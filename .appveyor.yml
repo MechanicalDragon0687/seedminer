@@ -15,7 +15,7 @@ install:
       } else {
           pacman -S --noconfirm --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-mbedtls 2>&1
       }
-      if ($LASTEXITCODE -eq 0) {
+      if ($env:LASTEXITCODE -eq 0) {
           $host.SetShouldExit(0)
       }
 build_script:
