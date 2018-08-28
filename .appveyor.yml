@@ -9,7 +9,7 @@ environment:
 matrix:
   fast_finish: true # If one job fails, the whole build is marked as a failure
 init:
-  - PATH C:\msys64\mingw64\bin;C:\msys64\usr\bin;%PATH%
+  - PATH "C:\msys64\mingw64\bin";"C:\msys64\usr\bin";"%PATH%"
 install:
   - git submodule update --init --recursive
   # Doing full pacman upgrades takes too long so we'll just use what packages are already available to us
