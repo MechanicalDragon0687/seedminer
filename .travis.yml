@@ -31,17 +31,18 @@ matrix:
     compiler: gcc
     os: linux
     sudo: required
-    install:
+    env: SHARED=1 # To build shared mbedtls libraries
+    before_install:
       - sudo apt-get update
-      - sudo apt-get install -y ocl-icd-opencl-dev
+      - sudo apt-get install -y ocl-icd-opencl-dev # OpenCL C headers & ICD Loader
+    install:
       - cd ../
-      - git clone --recursive https://github.com/Microsoft/vcpkg.git
-      - cd vcpkg/
-      - ./bootstrap-vcpkg.sh
-      - ./vcpkg install mbedtls:x64-linux # Because it's not in Trusty's apt repo
-      - sudo mkdir /usr/include/mbedtls/
-      - sudo cp -r packages/mbedtls_x64-linux/include/. /usr/local/include/mbedtls/
-      - sudo cp -r packages/mbedtls_x64-linux/lib/. /usr/local/lib/
+      - git clone --recursive https://github.com/ARMmbed/mbedtls.git
+      - cd mbedtls/
+      - git checkout mbedtls-2.12.0
+      - make
+      - make check
+      - sudo make install
     script:
       - cd $TRAVIS_BUILD_DIR/bfCL
       - make
