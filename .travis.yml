@@ -30,19 +30,14 @@ matrix:
     language: c
     compiler: gcc
     os: linux
-    sudo: required
-    env: SHARED=1 # To build shared mbedtls libraries
-    before_install:
-      - sudo apt-get update
-      - sudo apt-get install -y ocl-icd-opencl-dev # OpenCL C headers & ICD Loader
+    sudo: false # Use a container-based environment
+    addons:
+      apt:
+        update: true
+        packages:
+        - ocl-icd-opencl-dev
     install:
-      - cd ../
-      - git clone --recursive https://github.com/ARMmbed/mbedtls.git
-      - cd mbedtls/
-      - git checkout mbedtls-2.12.0
-      - make lib
-      - make check
-      - sudo make install
+      - vcpkg install mbedtls:x64-linux # Because it's not in Trusty's apt repo
     script:
       - cd $TRAVIS_BUILD_DIR/bfCL
       - make
