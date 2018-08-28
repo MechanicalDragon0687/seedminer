@@ -22,8 +22,9 @@ install:
           copy C:\Tools\vcpkg\packages\opencl_x64-windows\lib\OpenCL.lib C:\msys64\mingw64\lib\
           robocopy /E C:\Tools\vcpkg\packages\opencl_x64-windows\include\CL\ C:\msys64\mingw64\include\CL\
           if ($LASTEXITCODE -eq 1) {
-              echo robocopy finished successfully
+              exit /B 0
           }
+          echo hi
       }
 build_script:
   - ps: |
