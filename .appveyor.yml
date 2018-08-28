@@ -6,8 +6,6 @@ environment:
     # "JOB" doesn't really mean anything special
     - JOB: "Seedminer CPU Brute-forcer | Windows (gcc)"
     - JOB: "bfCL | Windows (gcc)"
-matrix:
-  fast_finish: true # If one job fails, the whole build is marked as a failure
 install:
   - PATH C:\msys64\mingw64\bin;C:\msys64\usr\bin;%PATH%
   - git submodule update --init --recursive
