@@ -12,9 +12,9 @@ install:
   # Use stderr redirect manipulation
   - ps: |
       if ($env:JOB -eq "Seedminer CPU Brute-forcer | Windows (gcc)") {
-          cmd.exe /C pacman -S --noconfirm --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-openssl
+          cmd.exe /C pacman -S --noconfirm --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-openssl 2`>`&1
       } else {
-          cmd.exe /C pacman -S --noconfirm --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-mbedtls
+          cmd.exe /C pacman -S --noconfirm --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-mbedtls 2`>`&1
           vcpkg install opencl:x64-windows
       }
 build_script:
