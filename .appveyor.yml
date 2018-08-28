@@ -21,6 +21,8 @@ install:
           if ($LASTEXITCODE -eq 3) {
               $host.SetShouldExit(0)
           }
+          cd C:\msys64\mingw64\include\
+          dir
       }
 build_script:
   - ps: |
