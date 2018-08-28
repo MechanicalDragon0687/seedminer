@@ -10,10 +10,10 @@ install:
   - PATH C:\msys64\mingw64\bin;C:\msys64\usr\bin;%PATH%
   - ps: dir
   # Doing full pacman upgrades takes too long so we'll just use what packages are already available to us
+  # Use stderr redirect manipulation
   - ps: |
-      # Use stderr redirect manipulation
       if ($env:JOB -eq "Seedminer CPU Brute-forcer | Windows (gcc)") {
-          cmd.exe /C pacman -S --noconfirm --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-openssl 2`>`&1
+          cmd /C pacman -S --noconfirm --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-openssl 2`>`&1
       } else {
           cmd.exe /C pacman -S --noconfirm --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-mbedtls 2`>`&1
       }
