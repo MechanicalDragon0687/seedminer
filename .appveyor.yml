@@ -8,31 +8,31 @@ environment:
     - JOB: "bfCL | Windows (gcc)"
 matrix:
   fast_finish: true # If one job fails, the whole build is marked as a failure
-for:
--
-  matrix:
-    only:
-      - JOB: "Seedminer CPU Brute-forcer | Windows (gcc)"
-
-  install:
-  - git submodule update --init --recursive
+init:
   - PATH C:\msys64\mingw64\bin;C:\msys64\usr\bin;%PATH%
-  - pacman -S --noconfirm --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-openssl
-  build_script:
-  - cd seedminer/
-  - mingw32-make
-for:
--
-  matrix:
-    only:
-      - JOB: "bfCL | Windows (gcc)"
-
-  install:
+install:
   - git submodule update --init --recursive
-  - PATH C:\msys64\mingw64\bin;C:\msys64\usr\bin;%PATH%
-  - vcpkg install opencl:x64-windows
-  - copy C:\Tools\vcpkg\packages\opencl_x64-windows\lib\OpenCL.lib C:\msys64\mingw64\lib\
-  - robocopy /E C:\Tools\vcpkg\packages\opencl_x64-windows\include\CL\ C:\msys64\mingw64\include\CL\
-  build_script:
-  - cd bfCL/
+  # Doing full pacman upgrades takes too long so we'll just use what packages are already available to us
+  # We're doing stderr redirect manipulation for the pacman commands since they write to stderr whcih normally causes Powershell to raise an exception
+  # We change the exit code that is returned from robocopy to "0" so that the build doesn't fail
+  # We're using vcpkg to download the latest OpenCL C headers and to compile an up-to-date OpenCL ICD Loader that will be used with MSYS2
+  - ps: |
+      if ($env:JOB -eq "Seedminer CPU Brute-forcer | Windows (gcc)") {
+          cmd.exe /C pacman -S --noconfirm --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-openssl 2`>`&1
+      } else {
+          cmd.exe /C pacman -S --noconfirm --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-mbedtls 2`>`&1
+          vcpkg install opencl:x64-windows
+          copy C:\Tools\vcpkg\packages\opencl_x64-windows\lib\OpenCL.lib C:\msys64\mingw64\lib\
+          robocopy /E C:\Tools\vcpkg\packages\opencl_x64-windows\include\CL\ C:\msys64\mingw64\include\CL\
+          if ($LASTEXITCODE -eq 1) {
+              $host.SetShouldExit(0)
+          }
+      }
+build_script:
+  - ps: |
+      if ($env:JOB -eq "Seedminer CPU Brute-forcer | Windows (gcc)") {
+          cd seedminer/
+      } else {
+          cd bfCL/
+      }
   - mingw32-make
