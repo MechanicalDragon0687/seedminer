@@ -1,6 +1,5 @@
 image: Visual Studio 2017
-platform:
-  - x64
+platform: x64
 environment:
   matrix:
     # "JOB" doesn't really mean anything
@@ -8,15 +7,20 @@ environment:
     - JOB: "bfCL | Windows (gcc)"
 install:
   - PATH C:\msys64\mingw64\bin;C:\msys64\usr\bin;%PATH%
-  - ps: dir
   # Doing full pacman upgrades takes too long so we'll just use what packages are already available to us
   # Use stderr redirect manipulation
   - ps: |
       if ($env:JOB -eq "Seedminer CPU Brute-forcer | Windows (gcc)") {
-          cmd /C pacman -S --noconfirm --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-openssl 2`>`&1
+          cmd.exe /C pacman -S --noconfirm --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-openssl 2`>`&1
       } else {
           cmd.exe /C pacman -S --noconfirm --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-mbedtls 2`>`&1
+          vcpkg install opencl
       }
 build_script:
-  - cd seedminer/
+  - ps: |
+      if ($env:JOB -eq "Seedminer CPU Brute-forcer | Windows (gcc)") {
+          cd seedminer/
+      } else {
+          cd bfCL/
+      }
   - mingw32-make
