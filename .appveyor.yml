@@ -17,7 +17,7 @@ install:
           cmd.exe /C pacman -S --noconfirm --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-mbedtls 2`>`&1
           vcpkg install opencl:x64-windows
           copy C:\Tools\vcpkg\packages\opencl_x64-windows\lib\OpenCL.lib C:\msys64\mingw64\lib\
-          robocopy /COPYALL /E C:\Tools\vcpkg\packages\opencl_x64-windows\include\CL C:\msys64\mingw64\include\
+          cmd.exe /C robocopy /COPYALL /E C:\Tools\vcpkg\packages\opencl_x64-windows\include\CL C:\msys64\mingw64\include\
       }
 build_script:
   - ps: |
